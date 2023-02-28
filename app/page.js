@@ -1,5 +1,39 @@
-import ExpenseCategoryItems from "./components/ExpenseCategoryItems";
-import { currencyFormatter } from "./lib/utils";
+'use client';
+
+import ExpenseCategoryItems from './components/ExpenseCategoryItems';
+import { currencyFormatter } from './lib/utils';
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
+import { Doughnut } from 'react-chartjs-2';
+
+ChartJS.register(ArcElement, Tooltip, Legend);
+
+const data = [
+  {
+    id: 1,
+    title: 'Entertainment',
+    total: 500,
+    color: '#fff',
+  },
+  {
+    id: 2,
+    title: 'Food',
+    total: 1000,
+    color: 'purple',
+  },
+
+  {
+    id: 3,
+    title: 'Transportation',
+    total: 2000,
+    color: 'red',
+  },
+  {
+    id: 4,
+    title: 'Shopping',
+    total: 3000,
+    color: 'green',
+  },
+];
 
 export default function Home() {
   return (
@@ -18,12 +52,37 @@ export default function Home() {
       <section className='py-6'>
         <h3 className='text-2xl font-bold'>My Expenses</h3>
         <div className='flex flex-col gap-4 mt-6'>
+          {data.map((expense) => {
+            return (
+              <ExpenseCategoryItems
+                key={expense.id}
+                color={expense.color}
+                title={expense.title}
+                total={expense.total}
+              />
+            );
+          })}
+        </div>
+      </section>
 
-          {/* Expense Cards */}
-          <ExpenseCategoryItems
-            color="#fff"
-            title="Entertainment"
-            amount={500}
+      {/* Chart Section */}
+      <section className='py-6'>
+        <h3 className='text-2xl'>Stats</h3>
+        <div className='w-1/2 mx-auto'>
+          <Doughnut
+            data={{
+              labels: data.map((expense) => expense.title),
+              datasets: [
+                {
+                  label: 'Expense',
+                  data: data.map((expense) => expense.total),
+                  backgroundColor: data.map((expense) => expense.color),
+                  hoverOffset: 4,
+                  borderColor: ['#18181b'],
+                  borderWidth: 5,
+                },
+              ],
+            }}
           />
         </div>
       </section>
