@@ -3,16 +3,16 @@ import { ImStatsBars } from 'react-icons/im';
 
 const Navbar = () => {
   return (
-    <header className='container max-w-2xl px-6 py-6 mx-auto'>
-      <div className='flex items-center justify-between'>
+    <header className="container max-w-2xl px-6 py-6 mx-auto">
+      <div className="flex items-center justify-between">
         {/* User Info */}
-        <div className='flex items-center gap-2'>
+        <div className="flex items-center gap-2">
           {/* Profile img */}
-          <div className='h-[40px] w-[40px] rounded-full overflow-hidden'>
+          <div className="h-[40px] w-[40px] rounded-full overflow-hidden">
             <Image
-              src='https://thispersondoesnotexist.xyz/img/4125.jpg'
-              alt='Image of user'
-              className='w-full h-full object-cover'
+              src="https://thispersondoesnotexist.xyz/img/4125.jpg"
+              alt="Image of user"
+              className="w-full h-full object-cover"
               width={40}
               height={40}
               priority
@@ -23,12 +23,12 @@ const Navbar = () => {
         </div>
 
         {/* Nav */}
-        <nav className='flex items-center gap-4'>
+        <nav className="flex items-center gap-4">
           <div>
-            <ImStatsBars className='text-2xl' />
+            <ImStatsBars className="text-2xl" />
           </div>
           <div>
-            <button className='btn btn-danger'>Logout</button>
+            <button className="btn btn-danger">Logout</button>
           </div>
         </nav>
       </div>

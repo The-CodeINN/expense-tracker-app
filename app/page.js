@@ -1,9 +1,12 @@
 'use client';
 
+import { useState } from 'react';
+
 import ExpenseCategoryItems from './components/ExpenseCategoryItems';
 import { currencyFormatter } from './lib/utils';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Doughnut } from 'react-chartjs-2';
+import Modal from './components/Modal';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -12,80 +15,95 @@ const data = [
     id: 1,
     title: 'Entertainment',
     total: 500,
-    color: '#fff',
+    color: '#fff'
   },
   {
     id: 2,
     title: 'Food',
     total: 1000,
-    color: 'purple',
+    color: 'purple'
   },
 
   {
     id: 3,
     title: 'Transportation',
     total: 2000,
-    color: 'red',
+    color: 'red'
   },
   {
     id: 4,
     title: 'Shopping',
     total: 3000,
-    color: 'green',
-  },
+    color: 'green'
+  }
 ];
 
 export default function Home() {
+  const [showModal, setShowModal] = useState(false);
+
   return (
-    <main className='container max-w-2xl px-6 py-6 mx-auto'>
-      <section className='py-3'>
-        <small className='text-gray-400 text-md'>My Balance</small>
-        <h2 className='text-4xl font-bold'>{currencyFormatter(100000)}</h2>
-      </section>
+    <>
+      {/* Modal */}
 
-      <section className='flex items-center gap-2 py-3'>
-        <button className='btn btn-primary'>+ Expense</button>
-        <button className='btn btn-secondary'>+ Income</button>
-      </section>
+      <Modal show={showModal} onClose={setShowModal}>
+        <h1 className="text-2xl font-bold">Add Expense</h1>
+      </Modal>
 
-      {/* Expenses */}
-      <section className='py-6'>
-        <h3 className='text-2xl font-bold'>My Expenses</h3>
-        <div className='flex flex-col gap-4 mt-6'>
-          {data.map((expense) => {
-            return (
-              <ExpenseCategoryItems
-                key={expense.id}
-                color={expense.color}
-                title={expense.title}
-                total={expense.total}
-              />
-            );
-          })}
-        </div>
-      </section>
+      <main className="container max-w-2xl px-6 py-6 mx-auto">
+        <section className="py-3">
+          <small className="text-gray-400 text-md">My Balance</small>
+          <h2 className="text-4xl font-bold">{currencyFormatter(100_000)}</h2>
+        </section>
 
-      {/* Chart Section */}
-      <section className='py-6'>
-        <h3 className='text-2xl'>Stats</h3>
-        <div className='w-1/2 mx-auto'>
-          <Doughnut
-            data={{
-              labels: data.map((expense) => expense.title),
-              datasets: [
-                {
-                  label: 'Expense',
-                  data: data.map((expense) => expense.total),
-                  backgroundColor: data.map((expense) => expense.color),
-                  hoverOffset: 4,
-                  borderColor: ['#18181b'],
-                  borderWidth: 5,
-                },
-              ],
-            }}
-          />
-        </div>
-      </section>
-    </main>
+        <section className="flex items-center gap-2 py-3">
+          <button
+            className="btn btn-primary"
+            onClick={() => setShowModal(true)}
+          >
+            + Expense
+          </button>
+          <button className="btn btn-secondary">+ Income</button>
+        </section>
+
+        {/* Expenses */}
+        <section className="py-6">
+          <h3 className="text-2xl font-bold">My Expenses</h3>
+          <div className="flex flex-col gap-4 mt-6">
+            {data.map(expense => {
+              return (
+                <ExpenseCategoryItems
+                  key={expense.id}
+                  color={expense.color}
+                  title={expense.title}
+                  total={expense.total}
+                />
+              );
+            })}
+          </div>
+        </section>
+
+        {/* Chart Section */}
+        <section className="py-6">
+          <h3 className="text-2xl">Stats</h3>
+          <div className="w-1/2 mx-auto">
+            <Doughnut
+              data={{
+                labels: data.map(expense => expense.title),
+                datasets: [
+                  {
+                    label: 'Expense',
+                    data: data.map(expense => expense.total),
+                    backgroundColor: data.map(expense => expense.color),
+                    hoverOffset: 4,
+                    borderColor: ['#18181b'],
+                    borderWidth: 5
+                  }
+                ]
+              }}
+            />
+          </div>
+        </section>
+      </main>
+    </>
   );
 }
