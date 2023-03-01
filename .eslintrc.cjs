@@ -31,13 +31,15 @@ module.exports = {
     'no-console': 'error',
     'react/react-in-jsx-scope': 'off',
     'react/prop-types': 'off',
-    'simple-import-sort/sort': 'error',
+    'simple-import-sort/imports': 'error',
+    'simple-import-sort/exports': 'error',
     'unicorn/filename-case': [
       'error',
       {
         cases: {
           camelCase: true,
-          kebabCase: true
+          kebabCase: true,
+          pascalCase: true
         }
       }
     ]

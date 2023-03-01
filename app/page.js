@@ -1,12 +1,12 @@
 'use client';
 
+import { ArcElement, Chart as ChartJS, Legend, Tooltip } from 'chart.js';
 import { useState } from 'react';
+import { Doughnut } from 'react-chartjs-2';
 
 import ExpenseCategoryItems from './components/ExpenseCategoryItems';
-import { currencyFormatter } from './lib/utils';
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
-import { Doughnut } from 'react-chartjs-2';
 import Modal from './components/Modal';
+import { currencyFormatter } from './lib/utils';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -52,7 +52,7 @@ export default function Home() {
       <main className="container max-w-2xl px-6 py-6 mx-auto">
         <section className="py-3">
           <small className="text-gray-400 text-md">My Balance</small>
-          <h2 className="text-4xl font-bold">{currencyFormatter(100_000)}</h2>
+          <h2 className="text-4xl font-bold">{currencyFormatter('100000')}</h2>
         </section>
 
         <section className="flex items-center gap-2 py-3">
