@@ -33,6 +33,7 @@ module.exports = {
     'react/prop-types': 'off',
     'simple-import-sort/imports': 'error',
     'simple-import-sort/exports': 'error',
+    'unicorn/checkArrowFunctions': 'off',
     'unicorn/filename-case': [
       'error',
       {

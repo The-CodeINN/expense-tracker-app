@@ -10,21 +10,29 @@
   button {
     @apply hover:scale-110 transition-all duration-300;
   }
+
+  input {
+    @apply px-4 py-2 bg-slate-600 rounded-xl;
+  }
 }
 
 @layer utilities {
   .btn {
-    @apply text-sm capitalize px-4 py-2 rounded-xl;
+    @apply text-sm capitalize px-4 py-2 rounded-xl self-start;
   }
 
   .btn-primary {
     @apply bg-blue-500 text-white border-blue-600;
   }
-  
+
   .btn-secondary {
     @apply bg-gray-500 text-white border-gray-600 border;
   }
   .btn-danger {
     @apply bg-red-500 text-white border-red-600 border;
+  }
+
+  .input-group {
+    @apply flex flex-col gap-4;
   }
 }
