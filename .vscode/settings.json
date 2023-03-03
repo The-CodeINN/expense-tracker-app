@@ -1,3 +1,4 @@
 {
-  "cSpell.words": ["tailwindcss"]
+  "cSpell.words": ["tailwindcss"],
+  "githubPullRequests.ignoredPullRequestBranches": ["main"]
 }
