@@ -10,6 +10,9 @@
   button {
     @apply hover:scale-110 transition-all duration-300;
   }
+  input{
+    @apply py-1 px-2 text-black rounded-sm;
+  }
 }
 
 @layer utilities {
@@ -26,5 +29,8 @@
   }
   .btn-danger {
     @apply bg-red-500 text-white border-red-600 border;
+  }
+  .btn-new{
+    @apply  transition-all duration-300 bg-white hover:scale-105 rounded-sm py-1 px-2 text-black mt-2;
   }
 }
