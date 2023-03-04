@@ -1,9 +1,16 @@
 'use client';
 
 import { ArcElement, Chart as ChartJS, Legend, Tooltip } from 'chart.js';
-import { addDoc, collection, getDocs } from 'firebase/firestore';
+import {
+  addDoc,
+  collection,
+  deleteDoc,
+  doc,
+  getDocs
+} from 'firebase/firestore';
 import { useEffect, useRef, useState } from 'react';
 import { Doughnut } from 'react-chartjs-2';
+import { RiDeleteBinLine } from 'react-icons/ri';
 
 import ExpenseCategoryItems from './components/ExpenseCategoryItems';
 import Modal from './components/Modal';
@@ -74,6 +81,21 @@ export default function Home() {
             ...newIncome
           }
         ];
+      });
+
+      descriptionReference.current.value = '';
+      amountReference.current.value = '';
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+
+  const deleteIncomeEntryHandler = async id => {
+    const documentReference = doc(database, 'incomes', id);
+    try {
+      await deleteDoc(documentReference);
+      setIncomes(previousIncomes => {
+        return previousIncomes.filter(income => income.id !== id);
       });
     } catch (error) {
       alert(error.message);
@@ -157,6 +179,13 @@ export default function Home() {
                 </div>
                 <p className="flex items-center gap-2 text-green-500 font-semibold">
                   {currencyFormatter(income.amount)}
+                  <button
+                    onClick={() => {
+                      deleteIncomeEntryHandler(income.id);
+                    }}
+                  >
+                    <RiDeleteBinLine className="text-white" />
+                  </button>
                 </p>
               </div>
             );
