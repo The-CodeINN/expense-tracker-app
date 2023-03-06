@@ -8,6 +8,23 @@
     "start": "next start",
     "lint": "eslint '*/**/*.{js,jsx}' --quiet --fix"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,jsx}": [
+      "eslint --fix -f git-log",
+      "prettier --write",
+      "git add"
+    ],
+    "*.{js,jsx}/": [
+      "eslint --fix",
+      "git add"
+    ],
+    "*.{js,css,md}": "prettier --write"
+  },
   "dependencies": {
     "chart.js": "^4.2.1",
     "eslint": "^8.35.0",
@@ -30,6 +47,8 @@
     "eslint-plugin-simple-import-sort": "^10.0.0",
     "eslint-plugin-sonarjs": "^0.18.0",
     "eslint-plugin-unicorn": "^45.0.2",
+    "husky": "^8.0.3",
+    "lint-staged": "^13.1.2",
     "postcss": "^8.4.21",
     "prettier": "^2.8.4",
     "tailwindcss": "^3.2.7"
