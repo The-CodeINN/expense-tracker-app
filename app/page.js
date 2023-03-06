@@ -105,7 +105,7 @@ export default function Home() {
       <Modal show={showIncomeModal} onClose={setShowIncomeModal}>
         <form onSubmit={addIncomeHandler} className="input-group">
           <div className="input-group">
-            <label htmlFor="amount" className="text-gray-400 text-sm">
+            <label htmlFor="amount" className="text-sm text-gray-400">
               Income Amount
             </label>
             <input
@@ -120,7 +120,7 @@ export default function Home() {
             />
           </div>
           <div className="input-group">
-            <label htmlFor="amount" className="text-gray-400 text-sm">
+            <label htmlFor="amount" className="text-sm text-gray-400">
               Description
             </label>
             <input
@@ -155,7 +155,7 @@ export default function Home() {
                     })}
                   </small>
                 </div>
-                <p className="flex items-center gap-2 text-green-500 font-semibold">
+                <p className="flex items-center gap-2 font-semibold text-green-500">
                   {currencyFormatter(income.amount)}
                 </p>
               </div>
