@@ -13,12 +13,14 @@ import { db as database } from '../firebase/firebase';
 
 export const FinanceContext = createContext({
   incomes: [],
+  expenses: [],
   addIncomeItem: async () => {},
   removeIncomeItem: async () => {}
 });
 
 export default function FinanceContextProvider({ children }) {
   const [income, setIncome] = useState([]);
+  const [expenses, setExpenses] = useState([]);
 
   const addIncomeItem = async newIncome => {
     // Add to firebase
@@ -54,7 +56,7 @@ export default function FinanceContextProvider({ children }) {
     }
   };
 
-  const values = { income, addIncomeItem, removeIncomeItem };
+  const values = { income, expenses, addIncomeItem, removeIncomeItem };
 
   useEffect(() => {
     const getIncomeData = async () => {
@@ -71,7 +73,23 @@ export default function FinanceContextProvider({ children }) {
 
       setIncome(data);
     };
+
+    const getExpensesData = async () => {
+      const collectionReference = collection(database, 'expenses');
+      const querySnapshot = await getDocs(collectionReference);
+
+      const data = querySnapshot.docs.map(document_ => {
+        return {
+          id: document_.id,
+          ...document_.data()
+        };
+      });
+
+      setExpenses(data);
+    };
+
     getIncomeData();
+    getExpensesData();
   }, []);
 
   return (
