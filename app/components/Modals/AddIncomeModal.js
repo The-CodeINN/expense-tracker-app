@@ -43,7 +43,7 @@ const AddIncomeModal = ({ show, onClose }) => {
     <Modal show={show} onClose={onClose}>
       <form onSubmit={addIncomeHandler} className="input-group">
         <div className="input-group">
-          <label htmlFor="amount" className="text-gray-400 text-sm">
+          <label htmlFor="amount" className="text-sm text-gray-400">
             Income Amount
           </label>
           <input
@@ -58,7 +58,7 @@ const AddIncomeModal = ({ show, onClose }) => {
           />
         </div>
         <div className="input-group">
-          <label htmlFor="amount" className="text-gray-400 text-sm">
+          <label htmlFor="amount" className="text-sm text-gray-400">
             Description
           </label>
           <input
@@ -90,7 +90,7 @@ const AddIncomeModal = ({ show, onClose }) => {
                   })}
                 </small>
               </div>
-              <p className="flex items-center gap-2 text-green-500 font-semibold">
+              <p className="flex items-center gap-2 font-semibold text-green-500">
                 {currencyFormatter(income.amount)}
                 <button
                   onClick={() => {
