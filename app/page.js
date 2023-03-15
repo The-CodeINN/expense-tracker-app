@@ -77,12 +77,7 @@ export default function Home() {
           <div className="flex flex-col gap-4 mt-6">
             {expenses.map(expense => {
               return (
-                <ExpenseCategoryItems
-                  key={expense.id}
-                  color={expense.color}
-                  title={expense.title}
-                  total={expense.total}
-                />
+                <ExpenseCategoryItems key={expense.id} expense={expense} />
               );
             })}
           </div>
