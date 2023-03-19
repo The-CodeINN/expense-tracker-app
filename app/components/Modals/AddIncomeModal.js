@@ -66,7 +66,7 @@ const AddIncomeModal = ({ show, onClose }) => {
             type="text"
             ref={descriptionReference}
             placeholder="Enter income description"
-            id="amount"
+            id="description"
             required
           />
         </div>

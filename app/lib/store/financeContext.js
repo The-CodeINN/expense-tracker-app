@@ -22,7 +22,9 @@ export const FinanceContext = createContext({
   addIncomeItem: async () => {},
   removeIncomeItem: async () => {},
   addExpenseItem: async () => {},
-  addCategory: async () => {}
+  addCategory: async () => {},
+  deleteExpenseItem: async () => {},
+  deleteExpenseCategory: async () => {}
 });
 
 export default function FinanceContextProvider({ children }) {
@@ -77,6 +79,47 @@ export default function FinanceContextProvider({ children }) {
     }
   };
 
+  const deleteExpenseItem = async (updatedExpense, expenseCategoryId) => {
+    try {
+      const documentReference = doc(database, 'expenses', expenseCategoryId);
+      await updateDoc(documentReference, { ...updatedExpense });
+
+      setExpenses(previousExpenses => {
+        const updatedExpenses = [...previousExpenses];
+
+        const foundIndex = updatedExpenses.findIndex(
+          ex => ex.id === expenseCategoryId
+        );
+
+        updatedExpenses[foundIndex].items = {
+          ...updatedExpense.items
+        };
+        updatedExpenses[foundIndex].total = updatedExpense.total;
+
+        return updatedExpenses;
+      });
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  const deleteExpenseCategory = async expenseCategoryId => {
+    try {
+      const documentReference = doc(database, 'expenses', expenseCategoryId);
+      await deleteDoc(documentReference);
+
+      setExpenses(previousExpenses => {
+        const updatedExpenses = previousExpenses.filter(
+          expense => expense.id !== expenseCategoryId
+        );
+
+        return [...updatedExpenses];
+      });
+    } catch (error) {
+      throw error;
+    }
+  };
+
   const addIncomeItem = async newIncome => {
     // Add to firebase
     const collectionReference = collection(database, 'incomes');
@@ -117,7 +160,9 @@ export default function FinanceContextProvider({ children }) {
     addIncomeItem,
     removeIncomeItem,
     addExpenseItem,
-    addCategory
+    addCategory,
+    deleteExpenseItem,
+    deleteExpenseCategory
   };
 
   useEffect(() => {
