@@ -8,6 +8,6 @@ const nextConfig = {
 module.exports = {
   ...nextConfig,
   images: {
-    domains: ['thispersondoesnotexist.xyz']
+    domains: ['res.cloudinary.com']
   }
 };

@@ -5,8 +5,10 @@ import { useContext, useEffect, useMemo, useState } from 'react';
 import { Doughnut } from 'react-chartjs-2';
 
 import ExpenseCategoryItems from './components/ExpenseCategoryItems';
+import Login from './components/Login';
 import AddExpensesModal from './components/Modals/AddExpensesModal';
 import AddIncomeModal from './components/Modals/AddIncomeModal';
+import { authContext } from './lib/store/authContext';
 import { FinanceContext } from './lib/store/financeContext';
 import { currencyFormatter } from './lib/utils';
 
@@ -18,6 +20,8 @@ export default function Home() {
   const [balance, setBalance] = useState(0);
 
   const { expenses, income } = useContext(FinanceContext);
+
+  const { user } = useContext(authContext);
 
   const totalIncome = useMemo(() => {
     let total = 0;
@@ -38,6 +42,10 @@ export default function Home() {
   useEffect(() => {
     setBalance(totalIncome - totalExpenses);
   }, [totalIncome, totalExpenses]);
+
+  if (!user) {
+    return <Login />;
+  }
 
   return (
     <>
