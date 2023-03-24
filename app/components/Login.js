@@ -8,6 +8,7 @@ const Login = () => {
           src="https://res.cloudinary.com/dgxuy04q8/image/upload/v1679655737/landing%20image.png"
           alt="Finance Tools"
           className="object-cover max-w-full max-h-full lg:max-w-none lg:max-h-none"
+          style={{ maxWidth: '80vw' }}
         />
       </div>
 
