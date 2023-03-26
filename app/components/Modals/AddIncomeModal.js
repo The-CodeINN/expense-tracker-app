@@ -1,6 +1,7 @@
 import { useContext, useRef } from 'react';
 import { RiDeleteBinLine } from 'react-icons/ri';
 
+import { authContext } from '@/app/lib/store/authContext';
 import { FinanceContext } from '@/app/lib/store/financeContext';
 import { currencyFormatter } from '@/app/lib/utils';
 
@@ -12,6 +13,8 @@ const AddIncomeModal = ({ show, onClose }) => {
   const { income, addIncomeItem, removeIncomeItem } =
     useContext(FinanceContext);
 
+  const { user } = useContext(authContext);
+
   // Handler functions
   const addIncomeHandler = async event => {
     event.preventDefault();
@@ -19,7 +22,8 @@ const AddIncomeModal = ({ show, onClose }) => {
     const newIncome = {
       amount: +amountReference.current.value,
       description: descriptionReference.current.value,
-      createdAt: new Date()
+      createdAt: new Date(),
+      uid: user.uid
     };
 
     try {

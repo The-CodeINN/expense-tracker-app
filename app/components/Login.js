@@ -1,6 +1,11 @@
+import { useContext } from 'react';
 import { FcGoogle } from 'react-icons/fc';
 
+import { authContext } from '../lib/store/authContext';
+
 const Login = () => {
+  const { googleLoginHandler } = useContext(authContext);
+
   return (
     <div className="flex flex-col mx-auto lg:flex-row lg:items-center">
       <div className="w-full lg:w-1/2 flex items-center justify-center">
@@ -22,7 +27,10 @@ const Login = () => {
         <p className="text-white text-center mb-6">
           A simple app to track your expenses and manage your finance
         </p>
-        <button className="flex items-center gap-2 px-4 py-2 bg-blue-500 text-white rounded-md">
+        <button
+          onClick={googleLoginHandler}
+          className="flex items-center gap-2 px-4 py-2 bg-blue-500 text-white rounded-md"
+        >
           <FcGoogle />
           <span className="text-lg">Sign in with Google</span>
         </button>

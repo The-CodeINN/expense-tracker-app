@@ -9,12 +9,14 @@ import {
   deleteDoc,
   doc,
   getDocs,
-  updateDoc
+  query,
+  updateDoc,
+  where
 } from 'firebase/firestore';
-import { userAgent } from 'next/server';
-import { createContext, useEffect, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 
 import { db as database } from '../firebase/firebase';
+import { authContext } from './authContext';
 
 export const FinanceContext = createContext({
   incomes: [],
@@ -31,11 +33,14 @@ export default function FinanceContextProvider({ children }) {
   const [income, setIncome] = useState([]);
   const [expenses, setExpenses] = useState([]);
 
+  const { user } = useContext(authContext);
+
   const addCategory = async category => {
     try {
       const collectionReference = collection(database, 'expenses');
 
       const documentSnapshot = await addDoc(collectionReference, {
+        uid: user.uid,
         ...category,
         items: []
       });
@@ -45,7 +50,7 @@ export default function FinanceContextProvider({ children }) {
           ...previousExpenses,
           {
             id: documentSnapshot.id,
-            uid: userAgent.uid,
+            uid: user.uid,
             items: [],
             ...category
           }
@@ -166,9 +171,14 @@ export default function FinanceContextProvider({ children }) {
   };
 
   useEffect(() => {
+    if (!user) return;
+
     const getIncomeData = async () => {
       const collectionReference = collection(database, 'incomes');
-      const querySnapshot = await getDocs(collectionReference);
+
+      const q = query(collectionReference, where('uid', '==', user.uid));
+
+      const querySnapshot = await getDocs(q);
 
       const data = querySnapshot.docs.map(document_ => {
         return {
@@ -183,7 +193,10 @@ export default function FinanceContextProvider({ children }) {
 
     const getExpensesData = async () => {
       const collectionReference = collection(database, 'expenses');
-      const querySnapshot = await getDocs(collectionReference);
+
+      const q = query(collectionReference, where('uid', '==', user.uid));
+
+      const querySnapshot = await getDocs(q);
 
       const data = querySnapshot.docs.map(document_ => {
         return {
@@ -197,7 +210,7 @@ export default function FinanceContextProvider({ children }) {
 
     getIncomeData();
     getExpensesData();
-  }, []);
+  }, [user]);
 
   return (
     <FinanceContext.Provider value={values}>{children}</FinanceContext.Provider>
