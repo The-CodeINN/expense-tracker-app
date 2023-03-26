@@ -35,4 +35,4 @@ Please note that running the app locally may require additional setup and config
 
 I'm always looking for ways to improve the app, so your feedback and suggestions are welcome. Please feel free to contact me with any comments or concerns you may have.
 
-Thank you for using the app, and I hope you it useful!
+Thank you for using the app, and I hope you find it useful!
